@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Список контактов</title>
+</head>
+<body>
+    <h1>Контакты</h1>
+
+    <!-- 🔍 Форма поиска -->
+    <form method="get" action="">
+        <input type="text" name="q" value="{{ query }}" placeholder="Поиск по имени или телефону">
+        <button type="submit">🔍 Найти</button>
+    </form>
+
+    <ul>
+        {% for contact in contacts %}
+            <li>{{ contact.name }} — {{ contact.phone }} — {{ contact.email }}</li>
+        {% empty %}
+            <li>Контактов пока нет</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'add_contact' %}">➕ Добавить контакт</a>
+</body>
+</html>
