@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "contacts",
+    "widget_tweaks",
 ]
 
 MIDDLEWARE = [
@@ -122,3 +123,6 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 LOGIN_URL = "/auth/login/"  # или /login/, если так настроено
+LANGUAGE_CODE = "ru"
+USE_I18N = True
+LOGIN_REDIRECT_URL = '/'

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Телефонная книга{% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      20% { transform: translateX(-5px); }
+      40% { transform: translateX(5px); }
+      60% { transform: translateX(-5px); }
+      80% { transform: translateX(5px); }
+      100% { transform: translateX(0); }
+    }
+
+    .animate-shake {
+      animation: shake 0.4s ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen">
+
+  <nav class="bg-blue-700 text-white p-4 mb-6 shadow">
+    <div class="container mx-auto flex justify-between items-center">
+      <span class="font-semibold text-lg">📘 Телефонная книга</span>
+
+      <div class="space-x-4">
+        {% if user.is_authenticated %}
+          <span>👤 {{ user.username }}</span>
+          <form method="post" action="{% url 'logout' %}" class="inline">
+            {% csrf_token %}
+            <button type="submit" class="hover:underline">🚪 Выйти</button>
+          </form>
+        {% else %}
+          <a href="{% url 'login' %}" class="hover:underline">🔑 Вход</a>
+          <a href="{% url 'register' %}" class="hover:underline">📝 Регистрация</a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+
+  <!-- 📣 Уведомления -->
+  {% if messages %}
+    <div class="container mx-auto mb-4 px-4">
+      {% for message in messages %}
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded shadow-sm">
+          {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <!-- 🧩 Контент -->
+  <main class="container mx-auto px-4">
+    {% block content %}{% endblock %}
+  </main>
+
+</body>
+</html>
