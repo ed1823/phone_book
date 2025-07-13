@@ -1,8 +1,8 @@
 from django.contrib import messages
+from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login
+
 from .forms import CustomUserCreationForm
 from .models import Contact
 
@@ -32,7 +32,9 @@ def register(request):
         if form.is_valid():
             user = form.save()
             login(request, user)  # 👈 автоматически войти после регистрации
-            messages.success(request, "Вы успешно зарегистрированы и вошли в аккаунт ✅")
+            messages.success(
+                request, "Вы успешно зарегистрированы и вошли в аккаунт ✅"
+            )
             return redirect("contact_list")  # 👈 редирект на главную
     else:
         form = CustomUserCreationForm()
