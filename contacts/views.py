@@ -49,4 +49,4 @@ def register(request):
             return redirect("contact_list")
     else:
         form = CustomUserCreationForm()
-    return render(request, "contacts/register.html", {"form": form})``
+    return render(request, "contacts/register.html", {"form": form})
