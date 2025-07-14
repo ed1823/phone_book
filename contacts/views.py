@@ -30,7 +30,7 @@ def add_contact(request):
 # added required methods
 # for example
 # @require_http_methods(["GET"])
-def contact_list(request) -> str:
+def contact_list(request):
     contacts = Contact.objects.all()
     return render(request, "contacts/contact_list.html", {"contacts": contacts})
 
