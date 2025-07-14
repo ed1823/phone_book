@@ -31,11 +31,11 @@ def register(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)  # 👈 автоматически войти после регистрации
+            login(request, user)
             messages.success(
                 request, "Вы успешно зарегистрированы и вошли в аккаунт ✅"
             )
-            return redirect("contact_list")  # 👈 редирект на главную
+            return redirect("contact_list")
     else:
         form = CustomUserCreationForm()
-    return render(request, "contacts/register.html", {"form": form})
+    return render(request, "contacts/register.html", {"form": form})``

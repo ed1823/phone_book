@@ -7,5 +7,9 @@ class Contact(models.Model):
     phone = models.CharField(max_length=20)
     email = models.EmailField(blank=True)
 
+    # !!ADD
+    # created_at: datetime.datetime = (datetime.datetime.now(), null = false)
+    # updated_at: datetime.datetime = (null = True)
+
     def __str__(self):
         return self.name

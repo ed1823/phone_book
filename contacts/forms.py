@@ -7,6 +7,7 @@ class CustomUserCreationForm(UserCreationForm):
         label="Имя пользователя",
         help_text="Обязательное поле. До 150 символов. Только буквы, цифры и символы @/./+/-/_"
     )
+    # FIXME rename field
     password1 = forms.CharField(
         label="Пароль",
         widget=forms.PasswordInput,
@@ -15,6 +16,7 @@ class CustomUserCreationForm(UserCreationForm):
             "Минимум 8 символов. Не может быть слишком простым или состоять только из цифр."
         )
     )
+    # FIXME rename field
     password2 = forms.CharField(
         label="Подтверждение пароля",
         widget=forms.PasswordInput,
