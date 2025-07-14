@@ -7,8 +7,15 @@ from .forms import CustomUserCreationForm
 from .models import Contact
 
 
+# TODO реализуй свой метожд LOGIN !!!!!!!!!
+
+
+# added required methods
+# for example
+# @require_http_methods(["POST"])
 @login_required
 def add_contact(request):
+    # FIXME deprecated request.method for you 
     if request.method == "POST":
         name = request.POST.get("name")
         phone = request.POST.get("phone")
@@ -20,12 +27,16 @@ def add_contact(request):
 
     return render(request, "contacts/add_contact.html")
 
-
+# added required methods
+# for example
+# @require_http_methods(["GET"])
 def contact_list(request):
     contacts = Contact.objects.all()
     return render(request, "contacts/contact_list.html", {"contacts": contacts})
 
-
+# added required methods
+# for example
+# @require_http_methods(["GET", "POST"])
 def register(request):
     if request.method == "POST":
         form = CustomUserCreationForm(request.POST)
