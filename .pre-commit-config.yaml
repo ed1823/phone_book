@@ -1,0 +1,40 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      # See https://pre-commit.com/hooks.html for more hooks
+      - id: check-ast
+      - id: check-case-conflict
+      - id: check-executables-have-shebangs
+      - id: check-merge-conflict
+      - id: debug-statements
+      - id: end-of-file-fixer
+      - id: name-tests-test
+        args: ['--pytest-test-first']
+      - id: trailing-whitespace
+      - id: check-docstring-first
+      - id: check-json
+      - id: check-yaml
+        exclude: (charts/.*|.gitlab-ci.yml)
+      - id: detect-private-key
+
+  - repo: https://github.com/pycqa/bandit
+    rev: 1.8.6
+    hooks:
+      - id: bandit
+        exclude: tests
+        args: [ "--skip=B311,B104,B105,B107,B108,B608,B101" ]
+
+  # Lints code
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: v0.12.2
+    hooks:
+      - id: ruff
+        args: [ "--fix" ]
+      - id: ruff-format
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.16.1
+    hooks:
+      - id: mypy
+        additional_dependencies: [tokenize-rt==3.2.0]
