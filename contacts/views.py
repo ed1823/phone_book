@@ -1,20 +1,41 @@
 from django.contrib import messages
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import redirect, render
+from django.views.decorators.http import require_http_methods
 
 from .forms import CustomUserCreationForm
 from .models import Contact
 
-# TODO реализуй свой метожд LOGIN !!!!!!!!!
+
+@require_http_methods(["GET", "POST"])
+def login_view(request):
+    if request.method == "POST":
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            messages.success(request, f"Пользователь {user.username} успешно вошёл ✅")
+            return redirect("contact_list")
+        else:
+            messages.error(request, "Некорректное имя пользователя или пароль")
+    else:
+        form = AuthenticationForm()
+
+    return render(request, "contacts/login.html", {"form": form})
 
 
-# added required methods
-# for example
-# @require_http_methods(["POST"])
+@login_required
+def logout_view(request):
+    logout(request)
+    messages.success(request, "Выход успешно выполнен 👋")
+    return redirect("login")
+
+
+@require_http_methods(["GET", "POST"])
 @login_required
 def add_contact(request):
-    # FIXME deprecated request.method for you
     if request.method == "POST":
         name = request.POST.get("name")
         phone = request.POST.get("phone")
@@ -27,27 +48,23 @@ def add_contact(request):
     return render(request, "contacts/add_contact.html")
 
 
-# added required methods
-# for example
-# @require_http_methods(["GET"])
+@require_http_methods(["GET"])
+@login_required
 def contact_list(request):
-    contacts = Contact.objects.all()
+    contacts = Contact.objects.all().order_by("-created_at")
     return render(request, "contacts/contact_list.html", {"contacts": contacts})
 
 
-# added required methods
-# for example
-# @require_http_methods(["GET", "POST"])
+@require_http_methods(["GET", "POST"])
 def register(request):
     if request.method == "POST":
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
-            messages.success(
-                request, "Вы успешно зарегистрированы и вошли в аккаунт ✅"
-            )
+            messages.success(request, "Вы успешно зарегистрированы и вошли ✅")
             return redirect("contact_list")
     else:
         form = CustomUserCreationForm()
+
     return render(request, "contacts/register.html", {"form": form})

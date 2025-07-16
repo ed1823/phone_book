@@ -27,7 +27,7 @@
   <!-- Password1 -->
   <div class="mb-4 relative">
     <label class="block text-gray-700 text-sm font-bold mb-2">Пароль</label>
-    {% render_field form.password1 class="password-input shadow border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline" placeholder="Придумайте пароль" %}
+    {% render_field form.password class="password-input shadow border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline" placeholder="Придумайте пароль" %}
     <span onclick="togglePassword(this)" class="absolute right-3 top-10 cursor-pointer text-sm">👁️</span>
 
     <ul class="text-sm mt-2 ml-1 space-y-1" id="passwordRules">
@@ -36,7 +36,7 @@
       <li class="rule text-gray-600">✅ Содержит букву</li>
     </ul>
 
-    {% for error in form.password1.errors %}
+    {% for error in form.password.errors %}
       <p class="text-red-600 text-sm mt-1">❗ {{ error }}</p>
     {% endfor %}
   </div>
@@ -44,9 +44,9 @@
   <!-- Password2 -->
   <div class="mb-6 relative">
     <label class="block text-gray-700 text-sm font-bold mb-2">Повторите пароль</label>
-    {% render_field form.password2 class="password-confirm shadow border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline" placeholder="Повторите пароль" %}
+    {% render_field form.password_confirm class="password-confirm shadow border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline" placeholder="Повторите пароль" %}
     <span onclick="togglePassword(this)" class="absolute right-3 top-10 cursor-pointer text-sm">👁️</span>
-    {% for error in form.password2.errors %}
+    {% for error in form.password_confirm.errors %}
       <p class="text-red-600 text-sm mt-1">❗ {{ error }}</p>
     {% endfor %}
   </div>
