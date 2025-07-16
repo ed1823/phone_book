@@ -19,24 +19,23 @@
 - SQLite (по умолчанию)
 - TailwindCSS + widget_tweaks (для оформления форм)
 
-## 📁 Структура проекта
+## 🗂️ Структура проекта
 
 phone_book/
 ├── contacts/
 │ ├── models.py # Модель Contact
 │ ├── views.py # Обработчики: login, logout, register, list, add
 │ ├── forms.py # Кастомная форма регистрации
-│ ├── templates/
-│ │ └── contacts/
-│ │ ├── login.html
-│ │ ├── register.html
-│ │ ├── contact_list.html
-│ │ └── add_contact.html
+│ └── templates/
+│ └── contacts/
+│ ├── login.html
+│ ├── register.html
+│ ├── contact_list.html
+│ └── add_contact.html
 ├── phone_book/
 │ └── settings.py
 ├── manage.py
 └── requirements.txt
-
 
 
 ## 📦 Установка и запуск
