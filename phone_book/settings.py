@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "contacts", # TODO registry phone_book like main app
+    "contacts",  # TODO registry phone_book like main app
     "widget_tweaks",
 ]
 
