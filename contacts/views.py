@@ -12,6 +12,7 @@ from .models import Contact
 @require_http_methods(["GET", "POST"])
 def login_view(request):
     if request.method == "POST":
+        # TODO: ИЗучить где данные в request Что такое #!request.POST 
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             user = form.get_user()
@@ -37,9 +38,9 @@ def logout_view(request):
 @login_required
 def add_contact(request):
     if request.method == "POST":
-        name = request.POST.get("name")
-        phone = request.POST.get("phone")
-        email = request.POST.get("email")
+        name = request.POST.get("name") # TODO add validate name
+        phone = request.POST.get("phone") # TODO add validate phone
+        email = request.POST.get("email") # TODO add validate email
 
         Contact.objects.create(user=request.user, name=name, phone=phone, email=email)
         messages.success(request, "Контакт успешно добавлен ✅")
@@ -49,7 +50,7 @@ def add_contact(request):
 
 
 @require_http_methods(["GET"])
-@login_required
+@login_required # TODO not login_required
 def contact_list(request):
     contacts = Contact.objects.all().order_by("-created_at")
     return render(request, "contacts/contact_list.html", {"contacts": contacts})
