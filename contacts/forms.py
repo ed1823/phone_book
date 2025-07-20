@@ -1,6 +1,5 @@
 from django import forms
 from django.contrib.auth.models import User
-from django.core.validators import RegexValidator
 from django.forms import ModelForm
 
 from contacts.models import Contact
@@ -13,15 +12,11 @@ class ContactForm(forms.ModelForm):
 
     name = forms.CharField(max_length=100, required=True)
 
-    phone = forms.CharField(
-        max_length=20,
-        required=True,
-        validators=[
-            RegexValidator(r"^\d+$", message="Телефон должен содержать только цифры")
-        ],
-    )
-
-    email = forms.EmailField(required=True)
+    def clean_phone(self):
+        phone = self.cleaned_data["phone"]
+        if not phone.isdigit():
+            raise forms.ValidationError("Телефон должен содержать только цифры")
+        return phone
 
 
 class CustomUserCreationForm(ModelForm):

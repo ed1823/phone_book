@@ -5,6 +5,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import redirect, render
 from django.views.decorators.http import require_http_methods
 
+from contacts.forms import ContactForm
 from contacts.models import Contact
 from phone_book.forms import CustomUserCreationForm
 
@@ -30,22 +31,27 @@ def login_view(request):
 @login_required
 def logout_view(request):
     logout(request)
-    messages.success(request, "Выход успешно выполнен 👋")
+    messages.success(request, "Выход успешно выполнен")
     return redirect("login")
 
 
 @require_http_methods(["GET", "POST"])
+@login_required
 def add_contact(request):
     if request.method == "POST":
-        name = request.POST.get("name")  # TODO add validate name
-        phone = request.POST.get("phone")  # TODO add validate phone
-        email = request.POST.get("email")  # TODO add validate email
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            contact = form.save(commit=False)
+            contact.user = request.user
+            contact.save()
+            messages.success(request, "Контакт успешно добавлен")
+            return redirect("contact_list")
+        else:
+            messages.error(request, "Проверьте форму на ошибки")
+    else:
+        form = ContactForm()
 
-        Contact.objects.create(user=request.user, name=name, phone=phone, email=email)
-        messages.success(request, "Контакт успешно добавлен ✅")
-        return redirect("contact_list")
-
-    return render(request, "contacts/add_contact.html")
+    return render(request, "contacts/add_contact.html", {"form": form})
 
 
 @require_http_methods(["GET"])
@@ -61,7 +67,7 @@ def register(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            messages.success(request, "Вы успешно зарегистрированы и вошли ✅")
+            messages.success(request, "Вы успешно зарегистрированы и вошли в систему")
             return redirect("contact_list")
     else:
         form = CustomUserCreationForm()
