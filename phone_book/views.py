@@ -13,7 +13,6 @@ from phone_book.models import Contact
 @require_http_methods(["GET", "POST"])
 def login_view(request):
     if request.method == "POST":
-        # TODO: ИЗучить где данные в request Что такое #!request.POST
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             user = form.get_user()
@@ -31,7 +30,7 @@ def login_view(request):
 @login_required
 def logout_view(request):
     logout(request)
-    messages.success(request, "Выход успешно выполнен 👋")
+    messages.success(request, "Выход успешно выполнен")
     return redirect("login")
 
 
