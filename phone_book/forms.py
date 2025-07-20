@@ -14,9 +14,13 @@ class ContactForm(forms.ModelForm):
 
     def clean_phone(self):
         phone = self.cleaned_data["phone"]
-        if not phone.isdigit():
-            raise forms.ValidationError("Телефон должен содержать только цифры")
-        return phone
+        digits_only = "".join(filter(str.isdigit, phone))
+
+        if len(digits_only) != 11 or not digits_only.startswith("7"):
+            raise forms.ValidationError(
+                "Номер должен содержать 11 цифр и начинаться с +7"
+            )
+        return f"+{digits_only}"
 
 
 class CustomUserCreationForm(ModelForm):

@@ -39,7 +39,7 @@
               ?
             </div>
             <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block w-max max-w-xs bg-gray-900 text-white text-sm rounded px-3 py-2 shadow-lg z-20">
-              Введите только цифры, например: 87001234567
+              Введите номер в формате: +7 (775) 123-45-67
             </div>
           </div>
         </label>
@@ -78,4 +78,11 @@
       </button>
     </form>
   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.8/inputmask.min.js"></script>
+<script>
+  $(document).ready(function () {
+    Inputmask("+7 (999) 999-99-99").mask("#id_phone");
+  });
+</script>
 {% endblock %}
