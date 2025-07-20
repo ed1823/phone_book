@@ -5,8 +5,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import redirect, render
 from django.views.decorators.http import require_http_methods
 
-from phone_book.forms import CustomUserCreationForm
 from contacts.models import Contact
+from phone_book.forms import CustomUserCreationForm
 
 
 @require_http_methods(["GET", "POST"])
@@ -35,7 +35,6 @@ def logout_view(request):
 
 
 @require_http_methods(["GET", "POST"])
-@login_required
 def add_contact(request):
     if request.method == "POST":
         name = request.POST.get("name")  # TODO add validate name
@@ -50,7 +49,6 @@ def add_contact(request):
 
 
 @require_http_methods(["GET"])
-@login_required  # TODO not login_required
 def contact_list(request):
     contacts = Contact.objects.all().order_by("-created_at")
     return render(request, "contacts/contact_list.html", {"contacts": contacts})
