@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Список контактов{% endblock %}
+
+{% block content %}
+  <div class="container mx-auto p-6 bg-gray-100 rounded-xl shadow-md">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-semibold text-gray-800">📒 Контакты</h2>
+      {% if user.is_authenticated %}
+        <a href="{% url 'add_contact' %}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">➕ Добавить</a>
+      {% endif %}
+    </div>
+
+    {% if contacts %}
+      <div class="overflow-x-auto rounded-lg shadow">
+        <table class="min-w-full bg-white border border-gray-300">
+          <thead class="bg-blue-600 text-white">
+            <tr>
+              <th class="py-3 px-4 text-left">👤 Имя</th>
+              <th class="py-3 px-4 text-left">📞 Телефон</th>
+              <th class="py-3 px-4 text-left">✉️ Email</th>
+              <th class="py-3 px-4 text-left">👤 Создал</th>
+            </tr>
+          </thead>
+          <tbody class="text-gray-700">
+            {% for contact in contacts %}
+              <tr class="border-b hover:bg-gray-100">
+                <td class="py-3 px-4">{{ contact.name }}</td>
+                <td class="py-3 px-4">{{ contact.phone }}</td>
+                <td class="py-3 px-4">{{ contact.email }}</td>
+                <td class="py-3 px-4">{{ contact.user.username }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <p class="text-gray-500">Контактов пока нет</p>
+    {% endif %}
+  </div>
+{% endblock %}

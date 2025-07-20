@@ -5,7 +5,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import redirect, render
 from django.views.decorators.http import require_http_methods
 
-from contacts.forms import CustomUserCreationForm
+from phone_book.forms import CustomUserCreationForm
 from contacts.models import Contact
 
 
