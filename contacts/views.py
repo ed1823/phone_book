@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
+from django.db.models import Q
 from django.shortcuts import redirect, render
 from django.views.decorators.http import require_http_methods
 
@@ -55,8 +56,24 @@ def add_contact(request):
 
 @require_http_methods(["GET"])
 def contact_list(request):
-    contacts = Contact.objects.all().order_by("-created_at")
-    return render(request, "contacts/contact_list.html", {"contacts": contacts})
+    query = request.GET.get("q", "")
+    contacts = Contact.objects.all()
+
+    if query:
+        contacts = contacts.filter(
+            Q(name__icontains=query)
+            | Q(phone__icontains=query)
+            | Q(email__icontains=query)
+        )
+
+    return render(
+        request,
+        "contacts/contact_list.html",
+        {
+            "contacts": contacts,
+            "query": query,
+        },
+    )
 
 
 @require_http_methods(["GET", "POST"])

@@ -4,13 +4,36 @@
 
 {% block content %}
   <div class="container mx-auto p-6 bg-gray-100 rounded-xl shadow-md">
-    <div class="flex justify-between items-center mb-6">
+
+    <!-- 🔍 Форма поиска -->
+    <form method="get" class="mb-6 flex gap-3">
+      <input
+        type="text"
+        name="q"
+        value="{{ query|default:'' }}"
+        placeholder="Поиск по имени, телефону или email"
+        class="flex-1 border border-gray-300 rounded px-4 py-2"
+      />
+      <button
+        type="submit"
+        class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+      >
+        Найти
+      </button>
+      {% if query %}
+        <a href="{% url 'contact_list' %}" class="text-blue-600 hover:underline mt-2">Сбросить</a>
+      {% endif %}
+    </form>
+
+    <!-- Заголовок и кнопка -->
+    <div class="flex justify-between items-center mb-4">
       <h2 class="text-2xl font-semibold text-gray-800">📒 Контакты</h2>
       {% if user.is_authenticated %}
         <a href="{% url 'add_contact' %}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">➕ Добавить</a>
       {% endif %}
     </div>
 
+    <!-- Таблица -->
     {% if contacts %}
       <div class="overflow-x-auto rounded-lg shadow">
         <table class="min-w-full bg-white border border-gray-300">
@@ -35,7 +58,7 @@
         </table>
       </div>
     {% else %}
-      <p class="text-gray-500">Контактов пока нет</p>
+      <p class="text-gray-500">Контактов не найдено</p>
     {% endif %}
   </div>
 {% endblock %}
