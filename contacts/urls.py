@@ -1,11 +1,10 @@
 from django.urls import path
-from . import views
-
+from contacts import views as contact_views
 
 urlpatterns = [
-    path("", views.contact_list, name="contact_list"),
-    path("add/", views.add_contact, name="add_contact"),
-    path("register/", views.register, name="register"),
-    path("login/", views.login_view, name="login"),
-    path("logout/", views.logout_view, name="logout"),
+    path("", contact_views.contact_list, name="contact_list"),
+    path("add/", contact_views.add_contact, name="add_contact"),
+    path("login/", contact_views.login_view, name="login"),
+    path("logout/", contact_views.logout_view, name="logout"),
+    path("register/", contact_views.register, name="register"),
 ]

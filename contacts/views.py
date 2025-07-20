@@ -46,10 +46,11 @@ def add_contact(request):
             messages.success(request, "Контакт успешно добавлен")
             return redirect("contact_list")
         else:
-            messages.error(request, "Ошибка при добавлении контакта")
+            messages.error(request, "Проверьте форму на ошибки")
     else:
         form = ContactForm()
-        return render(request, "contacts/add_contact.html", {"form": form})
+
+    return render(request, "contacts/add_contact.html", {"form": form})
 
 
 @require_http_methods(["GET"])
@@ -65,7 +66,7 @@ def register(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            messages.success(request, "Вы успешно зарегистрированы и вошли ✅")
+            messages.success(request, "Вы успешно зарегистрированы и вошли в систему")
             return redirect("contact_list")
     else:
         form = CustomUserCreationForm()

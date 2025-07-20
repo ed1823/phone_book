@@ -11,12 +11,17 @@ class ContactForm(forms.ModelForm):
         model = Contact
         fields = ["name", "phone", "email"]
 
-        phone = forms.CharField(
-            max_length=20,
-            validators=[
-                RegexValidator(r"^\d+$", "Телефон должен содержать только цифры")
-            ],
-        )
+    name = forms.CharField(max_length=100, required=True)
+
+    phone = forms.CharField(
+        max_length=20,
+        required=True,
+        validators=[
+            RegexValidator(r"^\d+$", message="Телефон должен содержать только цифры")
+        ],
+    )
+
+    email = forms.EmailField(required=True)
 
 
 class CustomUserCreationForm(ModelForm):

@@ -4,24 +4,38 @@
 
 {% block content %}
   <div class="max-w-md mx-auto bg-white p-6 rounded shadow">
-    <h2 class="text-xl font-bold mb-4">➕ Новый контакт</h2>
+    <h2 class="text-xl font-bold mb-6">➕ Новый контакт</h2>
 
-    <form method="post" class="space-y-4">
+    {% if messages %}
+      {% for message in messages %}
+        <div class="mb-4 p-3 rounded
+          {% if message.tags == 'error' %}bg-red-100 text-red-800 border border-red-300
+          {% elif message.tags == 'success' %}bg-green-100 text-green-800 border border-green-300
+          {% endif %}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+
+    <form method="post" class="space-y-5">
       {% csrf_token %}
 
       <div>
-        <label for="name" class="block font-medium">Имя</label>
-        <input type="text" id="name" name="name" class="w-full border border-gray-300 rounded px-4 py-2" required>
+        <label for="{{ form.name.id_for_label }}" class="block font-medium mb-1">Имя</label>
+        {{ form.name|add_class:"w-full border border-gray-300 rounded px-4 py-2" }}
+        {{ form.name.errors }}
       </div>
 
       <div>
-        <label for="phone" class="block font-medium">Телефон</label>
-        <input type="text" id="phone" name="phone" class="w-full border border-gray-300 rounded px-4 py-2" required>
+        <label for="{{ form.phone.id_for_label }}" class="block font-medium mb-1">Телефон</label>
+        {{ form.phone|add_class:"w-full border border-gray-300 rounded px-4 py-2" }}
+        {{ form.phone.errors }}
       </div>
 
       <div>
-        <label for="email" class="block font-medium">Email</label>
-        <input type="email" id="email" name="email" class="w-full border border-gray-300 rounded px-4 py-2">
+        <label for="{{ form.email.id_for_label }}" class="block font-medium mb-1">Email</label>
+        {{ form.email|add_class:"w-full border border-gray-300 rounded px-4 py-2" }}
+        {{ form.email.errors }}
       </div>
 
       <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
