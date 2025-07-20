@@ -22,6 +22,7 @@
 </head>
 <body class="bg-gray-50 text-gray-800 min-h-screen">
 
+  <!-- 🔷 Навигация -->
   <nav class="bg-blue-700 text-white p-4 mb-6 shadow">
     <div class="container mx-auto flex justify-between items-center">
       <span class="font-semibold text-lg">📘 Телефонная книга</span>
@@ -40,17 +41,6 @@
       </div>
     </div>
   </nav>
-
-  <!-- 📣 Уведомления -->
-  {% if messages %}
-    <div class="container mx-auto mb-4 px-4">
-      {% for message in messages %}
-        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded shadow-sm">
-          {{ message }}
-        </div>
-      {% endfor %}
-    </div>
-  {% endif %}
 
   <!-- 🧩 Контент -->
   <main class="container mx-auto px-4">

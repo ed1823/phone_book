@@ -16,9 +16,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "contacts",
+    "phone_book.apps.ContactsConfig",
     "widget_tweaks",
-    "phone_book.apps.PhoneBookConfig",
 ]
 
 MIDDLEWARE = [

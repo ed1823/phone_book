@@ -2,6 +2,22 @@ from django import forms
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 
+from phone_book.models import Contact
+
+
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = Contact
+        fields = ["name", "phone", "email"]
+
+    name = forms.CharField(max_length=100, required=True)
+
+    def clean_phone(self):
+        phone = self.cleaned_data["phone"]
+        if not phone.isdigit():
+            raise forms.ValidationError("Телефон должен содержать только цифры")
+        return phone
+
 
 class CustomUserCreationForm(ModelForm):
     username = forms.CharField(
