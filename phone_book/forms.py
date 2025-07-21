@@ -8,7 +8,7 @@ from phone_book.models import Contact
 class ContactForm(forms.ModelForm):
     class Meta:
         model = Contact
-        fields = ["name", "phone", "email"]
+        fields = ["name", "phone", "email", "address"]
 
     name = forms.CharField(max_length=100, required=True)
 

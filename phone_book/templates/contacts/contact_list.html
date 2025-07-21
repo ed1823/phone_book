@@ -42,6 +42,7 @@
               <th class="py-3 px-4 text-left">ФИО</th>
               <th class="py-3 px-4 text-left">Телефон</th>
               <th class="py-3 px-4 text-left">Email</th>
+              <th class="py-3 px-4 text-left">Адрес</th>
               <th class="py-3 px-4 text-left">Создал</th>
             </tr>
           </thead>
@@ -51,6 +52,7 @@
                 <td class="py-3 px-4">{{ contact.name }}</td>
                 <td class="py-3 px-4">{{ contact.phone }}</td>
                 <td class="py-3 px-4">{{ contact.email }}</td>
+                <td class="py-3 px-4">{{ contact.address }}</td>
                 <td class="py-3 px-4">{{ contact.user.username }}</td>
               </tr>
             {% endfor %}
