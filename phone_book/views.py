@@ -55,14 +55,14 @@ def add_contact(request):
 
 @require_http_methods(["GET"])
 def contact_list(request):
-    query = request.GET.get("q", "")
+    search = request.GET.get("search", "")
     contacts = Contact.objects.all()
 
-    if query:
+    if search:
         contacts = contacts.filter(
-            Q(name__icontains=query)
-            | Q(phone__icontains=query)
-            | Q(email__icontains=query)
+            Q(name__icontains=search)
+            | Q(phone__icontains=search)
+            | Q(email__icontains=search)
         )
 
     return render(
@@ -70,7 +70,7 @@ def contact_list(request):
         "contacts/contact_list.html",
         {
             "contacts": contacts,
-            "query": query,
+            "query": search,
         },
     )
 
