@@ -1,6 +1,9 @@
+import os
+from dotenv import load_dotenv
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / ".env")
 
 SECRET_KEY = "django-insecure-7&0mf57y%m4=ld$453bv=3wbhko1f(2%=)yl@2q7#1-^0p+r6q"
 
@@ -53,11 +56,11 @@ WSGI_APPLICATION = "phone_book.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "phone_book",
-        "USER": "phone_user",
-        "PASSWORD": "securepassword",
-        "HOST": "localhost",
-        "PORT": "5432",
+        "NAME": os.getenv("POSTGRESSQL_NAME", "test"),
+        "USER": os.getenv("POSTGRESSQL_USER", "test_user"),
+        "PASSWORD": os.getenv("POSTGRESSQL_PASSWORD", "test_password"),
+        "HOST": os.getenv("POSTGRESSQL_HOST", "localhost"),
+        "PORT": os.getenv("POSTGRESSQL_PORT", "5432"),
     }
 }
 
