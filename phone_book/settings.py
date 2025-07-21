@@ -52,8 +52,12 @@ WSGI_APPLICATION = "phone_book.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "phone_book",
+        "USER": "phone_user",
+        "PASSWORD": "securepassword",
+        "HOST": "localhost",
+        "PORT": "5432",
     }
 }
 
