@@ -22,4 +22,5 @@ dependencies = [
     "urllib3==2.5.0",
     "virtualenv==20.31.2",
     "psycopg2-binary>=2.9,<3.0",
+    "python-dotenv>=1.0.0",
 ]
