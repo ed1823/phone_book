@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.forms import ModelForm
 
 from phone_book.models import Contact
@@ -13,14 +14,20 @@ class ContactForm(forms.ModelForm):
     name = forms.CharField(max_length=100, required=True)
 
     def clean_phone(self):
-        phone = self.cleaned_data["phone"]
+        phone = self.cleaned_data.get("phone")
         digits_only = "".join(filter(str.isdigit, phone))
 
         if len(digits_only) != 11 or not digits_only.startswith("7"):
-            raise forms.ValidationError(
-                "Номер должен содержать 11 цифр и начинаться с +7"
+            raise ValidationError(
+                "Номер телефона должен состоять из 11 цифр и начинаться с +7."
             )
-        return f"+{digits_only}"
+
+        normalized_phone = f"+{digits_only}"
+
+        if Contact.objects.filter(phone=normalized_phone).exists():
+            raise ValidationError("Контакт с таким номером телефона уже существует.")
+
+        return normalized_phone
 
 
 class CustomUserCreationForm(ModelForm):
