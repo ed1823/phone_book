@@ -39,7 +39,19 @@
         <table class="min-w-full bg-white border border-gray-300">
           <thead class="bg-blue-600 text-white">
             <tr>
-              <th class="py-3 px-4 text-left">ФИО</th>
+              <th class="py-3 px-4 text-left">
+                ФИО
+                <a
+                  href="?{% if query %}search={{ query }}&{% endif %}sort=name"
+                  title="Сортировать по возрастанию"
+                  class="ml-2 hover:text-gray-200 {% if request.GET.sort == 'name' %}font-bold text-yellow-300{% endif %}"
+                >↑</a>
+                <a
+                  href="?{% if query %}search={{ query }}&{% endif %}sort=-name"
+                  title="Сортировать по убыванию"
+                  class="ml-1 hover:text-gray-200 {% if request.GET.sort == '-name' %}font-bold text-yellow-300{% endif %}"
+                >↓</a>
+              </th>
               <th class="py-3 px-4 text-left">Телефон</th>
               <th class="py-3 px-4 text-left">Email</th>
               <th class="py-3 px-4 text-left">Адрес</th>

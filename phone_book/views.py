@@ -56,6 +56,11 @@ def add_contact(request):
 @require_http_methods(["GET"])
 def contact_list(request):
     search = request.GET.get("search", "")
+    sort = request.GET.get("sort", "name")
+
+    reverse_sort = sort.startswith("-")
+    base_sort = sort.lstrip("-")
+
     contacts = Contact.objects.all()
 
     if search:
@@ -64,6 +69,9 @@ def contact_list(request):
             | Q(phone__icontains=search)
             | Q(email__icontains=search)
         )
+    contacts = contacts.order_by(
+        sort
+    )  # TODO изучить как работает order_by и доработать адекватно на фронте
 
     return render(
         request,
@@ -71,6 +79,8 @@ def contact_list(request):
         {
             "contacts": contacts,
             "query": search,
+            "sort": base_sort,
+            "reverse_sort": reverse_sort,
         },
     )
 
