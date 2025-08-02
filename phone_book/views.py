@@ -69,9 +69,7 @@ def contact_list(request):
             | Q(phone__icontains=search)
             | Q(email__icontains=search)
         )
-    contacts = contacts.order_by(
-        sort
-    )  # TODO изучить как работает order_by и доработать адекватно на фронте
+    contacts = contacts.order_by(sort)
 
     return render(
         request,
